@@ -7,14 +7,17 @@ use App\Models\Chat;
 use App\Models\Barang;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Url;
 
 class ChatBox extends Component
 {
+    #[Url(history: true)]
     public $selectedBarangId;
-    public $receiverId;
-    public $pesan;
 
-    protected $queryString = ['selectedBarangId', 'receiverId'];
+    #[Url(history: true)]
+    public $receiverId;
+
+    public $pesan;
 
     public function sendMessage()
     {

@@ -60,7 +60,7 @@ return new class extends Migration
 
             $table->enum('status_transaksi', [
                 'Menunggu Pembayaran',
-                'Diverifikasi',
+                'Di verifikasi',
                 'Diproses',
                 'Selesai'
             ])->default('Menunggu Pembayaran');

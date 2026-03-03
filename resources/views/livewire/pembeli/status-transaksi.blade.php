@@ -37,7 +37,7 @@
                     <span>Chat Penjual</span>
                 </a>
                 
-                @if($trx->status_transaksi === 'Diverifikasi' || $trx->metode_pembayaran === 'COD')
+                @if($trx->status_transaksi === 'Diproses' || $trx->metode_pembayaran === 'COD')
                     <button wire:click="konfirmasiTerima({{ $trx->id }})" wire:confirm="Yakin barang sudah di tangan dan sesuai deskripsi?" 
                         class="flex-1 py-3 bg-white border-2 border-emerald-500 text-emerald-600 rounded-xl font-black text-xs uppercase hover:bg-emerald-50 transition-all">
                         Barang Sudah Diterima

@@ -30,8 +30,8 @@
                     @endphp
 
                     @if($partner)
-                        <div wire:key="chat-list-{{ $lastChat->id_barang }}-{{ $partner->id }}"
-                            wire:click="selectChat({{ $lastChat->id_barang }}, {{ $partner->id }})"
+                        <div wire:key="chat-list-{{ $lastChat->id_barang ?? 'null' }}-{{ $partner->id }}"
+                            wire:click="selectChat('{{ $lastChat->id_barang }}', '{{ $partner->id }}')"
                             class="p-4 flex items-center gap-3 cursor-pointer transition-all border-b border-slate-50
                             {{ $isActive ? 'bg-blue-600 text-white' : 'bg-white hover:bg-slate-100' }}">
 
