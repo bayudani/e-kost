@@ -47,8 +47,8 @@
         </div>
     @empty
         <div class="py-20 text-center bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
-            <p class="text-slate-400 font-bold uppercase tracking-widest">Belum ada transaksi aktif bro!</p>
-            <a href="{{ route('pembeli.katalog') }}" class="mt-4 inline-block text-blue-600 font-black underline uppercase text-sm">Gas Belanja Dulu</a>
+            <p class="text-slate-400 font-bold uppercase tracking-widest">Belum ada transaksi aktif!</p>
+            <a href="{{ route('pembeli.katalog') }}" class="mt-4 inline-block text-blue-600 font-black underline uppercase text-sm">Belanja Dulu</a>
         </div>
     @endforelse
 </div>

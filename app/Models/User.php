@@ -20,7 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', // Jangan lupa tambahin role di sini biar bisa di-insert
+        'role', 
     ];
 
     /**

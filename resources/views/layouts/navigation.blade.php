@@ -8,7 +8,7 @@
             @else
                 <h2 class="font-bold text-xl text-slate-800 leading-tight">Dashboard</h2>
             @endif
-        </div>
+        </div>  
         
         <!-- User Profile Info -->
         <div class="flex items-center gap-4">

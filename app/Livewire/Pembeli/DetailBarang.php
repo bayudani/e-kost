@@ -28,8 +28,16 @@ class DetailBarang extends Component
      */
     public function hubungiPenjual()
     {
-        // Logika buat buka room chat baru atau redirect ke chat
-        return redirect()->route('pembeli.chat', ['barang_id' => $this->barang->id]);
+        // Kirim pesan otomatis pertama, atau langsung redirect ke chat
+        $barang = $this->barang; // pastikan property barang ada
+
+        // Redirect ke halaman chat dengan query params
+        return redirect()->to(
+            route('pembeli.chat') . '?' . http_build_query([
+                'selectedBarangId' => $barang->id,
+                'receiverId' => $barang->user_id, // atau $barang->user_id, sesuaikan nama kolom
+            ])
+        );
     }
 
     public function render()

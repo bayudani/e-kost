@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiChatController;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\Admin\BarangManager;
 use App\Livewire\Admin\KategoriManager;
@@ -29,16 +30,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $role = auth()->user()->role;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+    if ($role === 'admin') {
+        return redirect()->route('admin.user');
+    } elseif ($role === 'penjual') {
+        return redirect()->route('penjual.barang');
+    } else {
+        // Default (pembeli atau guest)
+        return redirect()->route('pembeli.katalog');
+    }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/dashboard', function () {
+    $role = auth()->user()->role;
+
+    if ($role === 'admin') {
+        return redirect()->route('admin.user');
+    } elseif ($role === 'penjual') {
+        return redirect()->route('penjual.barang');
+    } else {
+        // Default (pembeli atau guest)
+        return redirect()->route('pembeli.katalog');
+    }
+})->middleware(['auth', 'verified'])->name('dashboard');
 // 🛒 ================= ROUTE PEMBELI ================= 🛒
 Route::middleware(['auth', 'role:pembeli'])->prefix('pembeli')->name('pembeli.')->group(function () {
-    // Nanti tinggal arahin ke Component Livewire, misal: Route::get('/katalog', Katalog::class)->name('katalog');
     Route::get('/katalog', KatalogBarang::class)->name('katalog');
     // detail
     Route::get('/detail/{id}', DetailBarang::class)->name('detail');
@@ -71,6 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/api/chat/fetch', [ApiChatController::class, 'fetch'])->name('api.chat.fetch');
+    Route::post('/api/chat/send', [ApiChatController::class, 'send'])->name('api.chat.send');
 });
 
 require __DIR__ . '/auth.php';

@@ -1,7 +1,6 @@
 @section('page_title', 'Detail barang')
 
 <div class="max-w-5xl mx-auto py-8 p-6 ">
-    <!-- Card Utama (Gaya Wireframe tapi Glow Up) -->
     <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden p-8">
         <!-- Tombol Back ke Katalog -->
     <div class="mt-2">
@@ -14,13 +13,11 @@
         <div class="flex flex-col md:flex-row gap-10 mt-4">
             
             
-            <!-- 🖼️ AREA FOTO (KIRI) -->
             <div class="w-full md:w-1/2">
                 <div class="aspect-square bg-slate-50 border-2 border-slate-100 rounded-2xl overflow-hidden flex items-center justify-center relative">
                     @if($barang->foto)
                         <img src="{{ asset('storage/' . $barang->foto) }}" alt="{{ $barang->nama_barang }}" class="w-full h-full object-cover">
                     @else
-                        <!-- Style Wireframe X (Placeholder) -->
                         <div class="absolute inset-0 flex items-center justify-center opacity-10">
                             <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                                 <line x1="0" y1="0" x2="100" y2="100" stroke="black" stroke-width="1"/>

@@ -31,7 +31,7 @@ class User extends Component
         $this->email = $user->email;
         $this->role = $user->role;
 
-        $this->isEditModalOpen = true; // Buka modalnya bro!
+        $this->isEditModalOpen = true;
     }
 
     /**
@@ -56,7 +56,7 @@ class User extends Component
 
         // Tutup modal & kasih notif sukses
         $this->closeModal();
-        session()->flash('message', 'Mantap! Data user berhasil di-update bro! 🚀');
+        session()->flash('message', 'Mantap! Data user berhasil di-update!');
     }
 
     /**
@@ -78,7 +78,7 @@ class User extends Component
         
         if ($user) {
             $user->delete();
-            session()->flash('message', 'Data user berhasil dihapus, bro!');
+            session()->flash('message', 'Data user berhasil dihapus!');
         }
     }
 

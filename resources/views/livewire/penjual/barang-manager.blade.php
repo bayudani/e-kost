@@ -5,7 +5,7 @@
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
             <h2 class="text-2xl font-black text-slate-800 uppercase italic">Kelola Barang Saya</h2>
-            <p class="text-slate-500 text-sm mt-1">Pantau dan kelola inventaris dagangan lu di sini.</p>
+            <p class="text-slate-500 text-sm mt-1">Pantau dan kelola inventaris dagangan anda di sini.</p>
         </div>
         <button wire:click="openModal" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl shadow-lg shadow-blue-100 transition-all uppercase tracking-widest flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -50,7 +50,7 @@
                             <span class="font-black text-blue-600">Rp {{ number_format($item->harga, 0, ',', '.') }}</span>
                         </td>
                         <td class="px-6 py-4">
-                            <!-- Badge Status sesuai req lu: tersedia / terjual -->
+                            <!-- Badge Status sesuai req: tersedia / terjual -->
                             <span class="px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-tighter
                                 {{ $item->status === 'tersedia' ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700' }}">
                                 {{ $item->status }}
@@ -67,7 +67,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-12 text-center text-slate-400 font-bold uppercase text-xs italic">Belum ada barang dagangan nih bro.</td>
+                        <td colspan="5" class="px-6 py-12 text-center text-slate-400 font-bold uppercase text-xs italic">Belum ada barang dagangan nih.</td>
                     </tr>
                 @endforelse
             </tbody>

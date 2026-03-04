@@ -5,7 +5,7 @@
     @if($transaksi->status_transaksi === 'Dibatalkan')
         <div class="text-center p-10 bg-red-50 text-red-600 rounded-2xl border-2 border-red-200">
             <h2 class="text-2xl font-black">PESANAN EXPIRED!</h2>
-            <p>Waktu bayar lu udah abis bro (lewat 24 jam).</p>
+            <p>Waktu bayar udah abis (lewat 24 jam).</p>
         </div>
 
     <!-- Path: Metode COD -->

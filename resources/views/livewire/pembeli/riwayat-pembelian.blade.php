@@ -49,7 +49,7 @@
             </div>
         @empty
             <div class="py-20 text-center bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
-                <p class="text-slate-400 font-bold uppercase tracking-widest text-sm">Belum ada riwayat transaksi nih bro!</p>
+                <p class="text-slate-400 font-bold uppercase tracking-widest text-sm">Belum ada riwayat transaksi nih!</p>
                 <a href="{{ route('pembeli.katalog') }}" class="mt-4 inline-block text-blue-600 font-black underline uppercase text-xs">Cari Barang</a>
             </div>
         @endforelse

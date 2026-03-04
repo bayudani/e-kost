@@ -42,6 +42,7 @@ return new class extends Migration
             $table->foreignId('id_pengirim')->constrained('users')->onDelete('cascade');
             $table->foreignId('id_penerima')->constrained('users')->onDelete('cascade');
             $table->foreignId('id_barang')->constrained('barangs')->onDelete('cascade');
+            $table->boolean('is_read')->default(false);
             $table->text('pesan');
             $table->timestamps();
         });
@@ -60,7 +61,7 @@ return new class extends Migration
 
             $table->enum('status_transaksi', [
                 'Menunggu Pembayaran',
-                'Di verifikasi',
+                'Diverifikasi',
                 'Diproses',
                 'Selesai'
             ])->default('Menunggu Pembayaran');

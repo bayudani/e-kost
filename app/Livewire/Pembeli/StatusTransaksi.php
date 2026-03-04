@@ -17,7 +17,7 @@ class StatusTransaksi extends Component
         // Update status barang juga jadi 'terjual' biar ga nongol di katalog
         $trx->barang->update(['status' => 'terjual']);
 
-        session()->flash('message', 'Mantap! Transaksi selesai, semoga barangnya awet bro! 🔥');
+        session()->flash('message', 'Mantap! Transaksi selesai, semoga barangnya awet!');
         return redirect()->route('pembeli.riwayat');
     }
 

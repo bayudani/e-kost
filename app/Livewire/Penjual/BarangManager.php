@@ -16,7 +16,6 @@ class BarangManager extends Component
 
     protected $paginationTheme = 'tailwind';
 
-    // Properti sesuai Model Barang lu bro
     public $isModalOpen = false;
     public $isEditMode = false;
     public $barang_id, $nama_barang, $deskripsi, $kondisi_barang, $harga, $kategori_id, $foto, $old_foto, $status;
@@ -109,7 +108,7 @@ class BarangManager extends Component
         $barang = Barang::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         if ($barang->foto) { Storage::disk('public')->delete($barang->foto); }
         $barang->delete();
-        session()->flash('message', 'Barang lu udah dihapus, bro! 👋');
+        session()->flash('message', 'Barang ini udah dihapus');
     }
 
     public function render()

@@ -35,7 +35,7 @@ class BarangManager extends Component
             // }
 
             $barang->delete();
-            session()->flash('message', 'Sip! Data barang berhasil dihapus dari sistem, bro!');
+            session()->flash('message', 'Sip! Data barang berhasil dihapus dari sistem!');
         }
     }
 

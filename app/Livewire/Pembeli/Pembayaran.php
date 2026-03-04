@@ -39,7 +39,7 @@ class Pembayaran extends Component
             'status_transaksi' => 'Menunggu pembayaran' // Map ke 'waiting confirmation'
         ]);
 
-        session()->flash('message', 'Bukti berhasil diupload! Tunggu admin verifikasi ya bro. 🔥');
+        session()->flash('message', 'Bukti berhasil diupload! Tunggu admin verifikasi ya.');
         return redirect()->route('pembeli.status');
     }
 

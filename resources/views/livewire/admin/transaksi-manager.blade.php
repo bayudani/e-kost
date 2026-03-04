@@ -41,7 +41,7 @@
                         
                         <!-- Kolom ID -->
                         <td class="py-4 px-6 text-sm font-bold text-blue-600">
-                            #TRX-{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}
+                            {{ $item->id }}
                         </td>
                         
                         <!-- Kolom Produk -->
@@ -98,7 +98,7 @@
                             <svg class="mx-auto h-12 w-12 text-slate-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            <p class="text-slate-500 font-medium text-sm">Belum ada riwayat transaksi sama sekali nih bro.</p>
+                            <p class="text-slate-500 font-medium text-sm">Belum ada riwayat transaksi sama sekali nih.</p>
                         </td>
                     </tr>
                 @endforelse

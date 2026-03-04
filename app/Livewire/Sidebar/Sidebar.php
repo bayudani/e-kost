@@ -4,9 +4,21 @@ namespace App\Livewire\Sidebar;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Chat;
 
 class Sidebar extends Component
 {
+    // Hitung jumlah chat masuk yang belum dibaca
+    public function getUnreadChatsCountProperty()
+    {
+        if (!Auth::check()) return 0;
+
+        // Hitung pesan dimana kita adalah penerima dan status is_read masih false
+        return Chat::where('id_penerima', Auth::id())
+            ->where('is_read', false)
+            ->count();
+    }
+
     // Kita define menu dinamis berdasarkan role user
     public function getMenusProperty()
     {
@@ -18,7 +30,7 @@ class Sidebar extends Component
         if ($role === 'pembeli') {
             $menus = [
                 ['title' => 'Katalog Barang', 'route' => 'pembeli.katalog'],
-                ['title' => 'Chat', 'route' => 'pembeli.chat'],
+                ['title' => 'Chat', 'route' => 'pembeli.chat', 'show_badge' => true],
                 ['title' => 'Status Transaksi', 'route' => 'pembeli.status'],
                 ['title' => 'Riwayat', 'route' => 'pembeli.riwayat'],
             ];
@@ -28,7 +40,7 @@ class Sidebar extends Component
             $menus = [
                 ['title' => 'Kelola Barang', 'route' => 'penjual.barang'],
                 ['title' => 'Transaksi', 'route' => 'penjual.transaksi'],
-                ['title' => 'Chat', 'route' => 'penjual.chat'],
+                ['title' => 'Chat', 'route' => 'penjual.chat', 'show_badge' => true],
             ];
         }
         // 👑 Menu khusus Admin
@@ -48,8 +60,8 @@ class Sidebar extends Component
     public function render()
     {
         return view('livewire.sidebar.sidebar', [
-            // Kirim data menu ke view (Blade)
-            'menus' => $this->menus
+            'menus' => $this->menus,
+            'unreadCount' => $this->unreadChatsCount
         ]);
     }
 }

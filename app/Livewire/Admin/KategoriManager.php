@@ -66,7 +66,7 @@ class KategoriManager extends Component
 
         $this->closeModal();
         
-        $msg = $this->kategori_id ? 'Kategori berhasil diupdate bro!' : 'Kategori baru berhasil ditambahin bro!';
+        $msg = $this->kategori_id ? 'Kategori berhasil diupdate!' : 'Kategori baru berhasil ditambahin!';
         session()->flash('message', $msg);
     }
 
@@ -87,7 +87,7 @@ class KategoriManager extends Component
         $kategori = Kategori::find($id);
         if ($kategori) {
             $kategori->delete();
-            session()->flash('message', 'Mantap! Data kategori berhasil dihapus bro!');
+            session()->flash('message', 'Mantap! Data kategori berhasil dihapus!');
         }
     }
 

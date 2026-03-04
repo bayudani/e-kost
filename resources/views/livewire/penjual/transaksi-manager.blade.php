@@ -64,7 +64,7 @@
                 <!-- ⚡ Action Buttons -->
                 <div class="space-y-3">
                     @if(($trx->status_transaksi === 'Diverifikasi' || ($trx->metode_pembayaran === 'COD' && $trx->status_transaksi === 'Menunggu Pembayaran')) && $trx->status_transaksi !== 'Diproses')
-                        <button wire:click="konfirmasiPenyerahan({{ $trx->id }})" wire:confirm="Yakin sudah serahin barangnya ke pembeli bro?" 
+                        <button wire:click="konfirmasiPenyerahan({{ $trx->id }})" wire:confirm="Yakin sudah serahin barangnya ke pembeli?" 
                             class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl shadow-lg shadow-blue-100 flex items-center justify-center gap-3 transition-all uppercase tracking-widest text-sm">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                             Konfirmasi Penyerahan
@@ -83,7 +83,7 @@
                 <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
                     <svg class="w-10 h-10 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
                 </div>
-                <p class="text-slate-400 font-bold uppercase tracking-widest text-sm italic">Belum ada orderan masuk nih bro. Sabar ya! ☕</p>
+                <p class="text-slate-400 font-bold uppercase tracking-widest text-sm italic">Belum ada orderan masuk nih. Sabar ya!</p>
             </div>
         @endforelse
     </div>

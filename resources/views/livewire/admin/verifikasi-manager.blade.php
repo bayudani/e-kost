@@ -6,7 +6,7 @@
     <div class="px-8 py-6 border-b border-slate-100 bg-white flex justify-between items-center">
         <div>
             <h2 class="text-xl font-extrabold text-slate-800">Verifikasi Pembayaran</h2>
-            <p class="text-slate-500 text-sm mt-1">Cek dan validasi bukti transfer dari pembeli (Rekber).</p>
+            <p class="text-slate-500 text-sm mt-1">Cek dan validasi bukti transfer dari pembeli.</p>
         </div>
     </div>
 
@@ -28,7 +28,7 @@
                     <div class="space-y-4 flex-1">
                         <div>
                             <p class="text-xs text-slate-500 font-medium">ID transaksi</p>
-                            <p class="text-sm font-bold text-slate-800">#TRX-{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}</p>
+                            <p class="text-sm font-bold text-slate-800">{{ $item->id }}</p>
                         </div>
                         <div>
                             <p class="text-xs text-slate-500 font-medium">Pembeli</p>

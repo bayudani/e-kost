@@ -22,7 +22,7 @@ class TransaksiManager extends Component
             'status_transaksi' => 'Diproses'
         ]);
 
-        session()->flash('message', 'Mantap! Status berhasil diupdate. Tunggu pembeli konfirmasi penerimaan ya bro! 🚀');
+        session()->flash('message', 'Mantap! Status berhasil diupdate. Tunggu pembeli konfirmasi penerimaan ya!');
     }
     public function render()
     {
