@@ -1,6 +1,6 @@
-@section('page_title', 'Katalog Barang')
 
 <div class="space-y-6 flex-1 p-6">
+    @section('page_title', 'Katalog Barang')
     <!-- Header Section -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
