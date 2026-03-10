@@ -7,17 +7,21 @@ use Livewire\Component;
 
 class StatusTransaksi extends Component
 {
-
-
     public function konfirmasiTerima($id)
     {
         $trx = Transaksi::findOrFail($id);
+        
+        // Update status transaksi menjadi selesai
         $trx->update(['status_transaksi' => 'Selesai']);
 
-        // Update status barang juga jadi 'terjual' biar ga nongol di katalog
-        $trx->barang->update(['status' => 'terjual']);
+        // Update status barang juga jadi 'terjual' biar ga nongol di katalog umum lagi
+        if ($trx->barang) {
+            $trx->barang->update(['status' => 'terjual']);
+        }
 
-        session()->flash('message', 'Mantap! Transaksi selesai, semoga barangnya awet!');
+        // Flash message menggunakan kata-kata yang lebih asik tapi tetap profesional
+        session()->flash('message', 'Transaksi berhasil diselesaikan! Semoga barangnya awet dan bermanfaat ya.');
+        
         return redirect()->route('pembeli.riwayat');
     }
 

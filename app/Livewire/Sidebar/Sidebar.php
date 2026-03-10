@@ -19,7 +19,7 @@ class Sidebar extends Component
             ->count();
     }
 
-    // Kita define menu dinamis berdasarkan role user
+    // Kita define menu dinamis berdasarkan role user beserta ikonnya
     public function getMenusProperty()
     {
         $role = Auth::user()->role ?? 'pembeli'; // Default fallback
@@ -29,28 +29,28 @@ class Sidebar extends Component
         // 🛒 Menu khusus Pembeli
         if ($role === 'pembeli') {
             $menus = [
-                ['title' => 'Katalog Barang', 'route' => 'pembeli.katalog'],
-                ['title' => 'Chat', 'route' => 'pembeli.chat', 'show_badge' => true],
-                ['title' => 'Status Transaksi', 'route' => 'pembeli.status'],
-                ['title' => 'Riwayat', 'route' => 'pembeli.riwayat'],
+                ['title' => 'Katalog Barang', 'route' => 'pembeli.katalog', 'icon' => 'katalog'],
+                ['title' => 'Chat', 'route' => 'pembeli.chat', 'icon' => 'chat', 'show_badge' => true],
+                ['title' => 'Status Transaksi', 'route' => 'pembeli.status', 'icon' => 'transaksi'],
+                ['title' => 'Riwayat', 'route' => 'pembeli.riwayat', 'icon' => 'riwayat'],
             ];
         }
         // 🏪 Menu khusus Penjual
         elseif ($role === 'penjual') {
             $menus = [
-                ['title' => 'Kelola Barang', 'route' => 'penjual.barang'],
-                ['title' => 'Transaksi', 'route' => 'penjual.transaksi'],
-                ['title' => 'Chat', 'route' => 'penjual.chat', 'show_badge' => true],
+                ['title' => 'Kelola Barang', 'route' => 'penjual.barang', 'icon' => 'barang'],
+                ['title' => 'Transaksi', 'route' => 'penjual.transaksi', 'icon' => 'transaksi'],
+                ['title' => 'Chat', 'route' => 'penjual.chat', 'icon' => 'chat', 'show_badge' => true],
             ];
         }
         // 👑 Menu khusus Admin
         elseif ($role === 'admin') {
             $menus = [
-                ['title' => 'Kelola User', 'route' => 'admin.user'],
-                ['title' => 'Kelola Kategori', 'route' => 'admin.kategori'],
-                ['title' => 'Kelola Barang', 'route' => 'admin.barang'],
-                ['title' => 'Verifikasi Pembayaran', 'route' => 'admin.verifikasi'],
-                ['title' => 'Kelola Transaksi', 'route' => 'admin.transaksi'],
+                ['title' => 'Kelola User', 'route' => 'admin.user', 'icon' => 'user'],
+                ['title' => 'Kelola Kategori', 'route' => 'admin.kategori', 'icon' => 'kategori'],
+                ['title' => 'Kelola Barang', 'route' => 'admin.barang', 'icon' => 'barang'],
+                ['title' => 'Verifikasi Pembayaran', 'route' => 'admin.verifikasi', 'icon' => 'verifikasi'],
+                ['title' => 'Kelola Transaksi', 'route' => 'admin.transaksi', 'icon' => 'transaksi'],
             ];
         }
 

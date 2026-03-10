@@ -13,19 +13,21 @@ class Pembayaran extends Component
     public $transaksi;
     public $bukti_transfer;
 
-    public function mount($id) {
-    $this->transaksi = Transaksi::with('barang')->findOrFail($id);
+    public function mount($id) 
+    {
+        $this->transaksi = Transaksi::with('barang')->findOrFail($id);
 
-    // Cek Expiry khusus untuk metode TRANSFER
-    if ($this->transaksi->metode_pembayaran === 'Transfer' && 
-        $this->transaksi->status_transaksi === 'Menunggu Pembayaran') {
-        
-        // Jika sudah lebih dari 24 jam dari waktu transaksi dibuat
-        if (now()->diffInHours($this->transaksi->created_at) >= 24) {
-            $this->transaksi->update(['status_transaksi' => 'Dibatalkan']);
+        // Cek Expiry khusus untuk metode TRANSFER
+        if ($this->transaksi->metode_pembayaran === 'Transfer' && 
+            $this->transaksi->status_transaksi === 'Menunggu Pembayaran') {
+            
+            // PERBAIKAN LOGIC: Gunakan isPast() agar presisi hitungannya sampai ke detik
+            if ($this->transaksi->created_at->addHours(24)->isPast()) {
+                $this->transaksi->update(['status_transaksi' => 'Dibatalkan']);
+            }
         }
     }
-}
+
     public function uploadBukti()
     {
         $this->validate([
@@ -36,7 +38,8 @@ class Pembayaran extends Component
 
         $this->transaksi->update([
             'bukti_transfer' => $path,
-            'status_transaksi' => 'Menunggu pembayaran' // Map ke 'waiting confirmation'
+            // PERBAIKAN: Setelah upload, status harus ganti biar admin ngecek, bukan nunggu dibayar lagi
+            'status_transaksi' => 'Menunggu Verifikasi' 
         ]);
 
         session()->flash('message', 'Bukti berhasil diupload! Tunggu admin verifikasi ya.');

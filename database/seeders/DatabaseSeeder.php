@@ -29,14 +29,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $penjual = User::create([
-            'name' => 'Ulla Shop', // Sesuai di UI chat/transaksi
+            'name' => 'Ulla Shop', 
             'email' => 'ulla@gmail.com',
             'password' => Hash::make('password'),
             'role' => 'penjual',
         ]);
 
         $pembeli = User::create([
-            'name' => 'Avrilla Rizki', // Sesuai di UI chat
+            'name' => 'Avrilla Rizki', 
             'email' => 'rilla@gmail.com',
             'password' => Hash::make('password'),
             'role' => 'pembeli',

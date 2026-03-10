@@ -61,6 +61,7 @@ return new class extends Migration
 
             $table->enum('status_transaksi', [
                 'Menunggu Pembayaran',
+                'Menunggu Verifikasi',
                 'Diverifikasi',
                 'Diproses',
                 'Selesai'

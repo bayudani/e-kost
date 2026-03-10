@@ -180,7 +180,7 @@ return [
     */
 
     'inject_assets' => true,
-    'asset_url' => env('APP_URL'),
+
     /*
     |---------------------------------------------------------------------------
     | Navigate (SPA mode)
