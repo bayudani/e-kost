@@ -279,4 +279,6 @@ return [
         'max_calls' => 50,           // Maximum method calls per request
         'max_components' => 20,      // Maximum components per batch request
     ],
+
+    'asset_url' => env('APP_URL', 'https://e-kost.vercel.app') . '/vendor',
 ];
