@@ -17,6 +17,7 @@ use App\Livewire\Pembeli\StatusTransaksi;
 use App\Livewire\Penjual\BarangManager as PenjualBarangManager;
 use App\Livewire\Penjual\TransaksiManager as PenjualTransaksiManager;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,14 +68,14 @@ Route::middleware(['auth', 'role:pembeli'])->prefix('pembeli')->name('pembeli.')
     Route::get('/chat', ChatBox::class)->name('chat');
 });
 
-// 🏪 ================= ROUTE PENJUAL ================= 🏪
+//  ================= ROUTE PENJUAL ================= 
 Route::middleware(['auth', 'role:penjual'])->prefix('penjual')->name('penjual.')->group(function () {
     Route::get('/kelola-barang', PenjualBarangManager::class)->name('barang');
     Route::get('/transaksi', PenjualTransaksiManager::class)->name('transaksi');
     Route::get('/chat', ChatBox::class)->name('chat');
 });
 
-// 👑 ================= ROUTE ADMIN ================= 👑
+//  ================= ROUTE ADMIN ================= 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/kelola-user', User::class)->name('user');
     Route::get('/kelola-kategori', KategoriManager::class)->name('kategori');
@@ -90,6 +91,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/api/chat/fetch', [ApiChatController::class, 'fetch'])->name('api.chat.fetch');
     Route::post('/api/chat/send', [ApiChatController::class, 'send'])->name('api.chat.send');
+});
+
+Route::get('/bikin-storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Yey, storage link berhasil dibuat! 🎉';
 });
 
 require __DIR__ . '/auth.php';
