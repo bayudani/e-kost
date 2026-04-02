@@ -95,7 +95,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/bikin-storage-link', function () {
     Artisan::call('storage:link');
-    return 'Yey, storage link berhasil dibuat! 🎉';
+    return 'storage link berhasil dibuat!';
 });
 
 require __DIR__ . '/auth.php';
