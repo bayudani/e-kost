@@ -20,7 +20,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', 
+        'role',
+        'no_hp',
+        'nama_bank',
+        'no_rekening',
+        'atas_nama',
     ];
 
     /**

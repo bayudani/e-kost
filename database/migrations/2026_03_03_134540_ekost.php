@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('role', ['admin', 'pembeli', 'penjual'])->default('pembeli')->after('password');
+            $table->string('no_hp')->nullable()->after('role');
         });
 
         Schema::create('kategoris', function (Blueprint $table) {

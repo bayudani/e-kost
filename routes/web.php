@@ -16,6 +16,7 @@ use App\Livewire\Pembeli\RiwayatPembelian;
 use App\Livewire\Pembeli\StatusTransaksi;
 use App\Livewire\Penjual\BarangManager as PenjualBarangManager;
 use App\Livewire\Penjual\TransaksiManager as PenjualTransaksiManager;
+use App\Livewire\Profil\Profil;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
@@ -83,7 +84,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/verifikasi-pembayaran', VerifikasiManager::class)->name('verifikasi');
     Route::get('/kelola-transaksi', TransaksiManager::class)->name('transaksi');
 });
-
+Route::get('/profil', Profil::class)->name('profil');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

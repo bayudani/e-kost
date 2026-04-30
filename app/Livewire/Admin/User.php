@@ -2,27 +2,28 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\User as UserModel;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\User as UserModel; 
 
 class User extends Component
 {
     use WithPagination;
-
+    
     protected $paginationTheme = 'tailwind';
 
-    // Properti buat ngatur state Modal dan Form
-    public $isEditModalOpen = false;
-    public $user_id;
-    public $name;
-    public $email;
-    public $role;
+    // State untuk Modal View
+    public $isViewModalOpen = false;
+    
+    // Properties user
+    public $user_id, $name, $email, $role;
+    // Properties tambahan khusus penjual
+    public $no_hp, $nama_bank, $no_rekening, $atas_nama;
 
     /**
-     * Buka modal dan isi form dengan data user yang mau diedit
+     * Buka modal untuk melihat detail pengguna (Read-Only)
      */
-    public function editUser($id)
+    public function viewUser($id)
     {
         $user = UserModel::findOrFail($id);
         
@@ -30,64 +31,38 @@ class User extends Component
         $this->name = $user->name;
         $this->email = $user->email;
         $this->role = $user->role;
+        
+        // Data rekening
+        $this->no_hp = $user->no_hp;
+        $this->nama_bank = $user->nama_bank;
+        $this->no_rekening = $user->no_rekening;
+        $this->atas_nama = $user->atas_nama;
 
-        $this->isEditModalOpen = true;
+        $this->isViewModalOpen = true;
     }
 
-    /**
-     * Proses update data ke database
-     */
-    public function updateUser()
-    {
-        // Validasi inputan dulu biar aman dari error
-        $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $this->user_id,
-            'role' => 'required|in:admin,penjual,pembeli',
-        ]);
-
-        // Cari user-nya, terus update datanya
-        $user = UserModel::findOrFail($this->user_id);
-        $user->update([
-            'name' => $this->name,
-            'email' => $this->email,
-            'role' => $this->role,
-        ]);
-
-        // Tutup modal & kasih notif sukses
-        $this->closeModal();
-        session()->flash('message', 'Mantap! Data user berhasil di-update!');
-    }
-
-    /**
-     * Tutup modal dan bersihin sisa inputan
-     */
-    public function closeModal()
-    {
-        $this->isEditModalOpen = false;
-        $this->reset(['user_id', 'name', 'email', 'role']);
-        $this->resetValidation(); // Ilangin pesan error validasi (kalau ada)
-    }
-
-    /**
-     * Fungsi hapus user (Yang kemaren udah kita buat)
-     */
     public function deleteUser($id)
     {
-        $user = UserModel::find($id);
-        
-        if ($user) {
-            $user->delete();
-            session()->flash('message', 'Data user berhasil dihapus!');
+        // Jangan biarkan admin menghapus dirinya sendiri (opsional tapi best practice)
+        if (auth()->id() == $id) {
+            session()->flash('message', 'Tidak dapat menghapus akun Anda sendiri.');
+            return;
         }
+
+        User::findOrFail($id)->delete();
+        session()->flash('message', 'Pengguna berhasil dihapus.');
+    }
+
+    public function closeModal()
+    {
+        $this->isViewModalOpen = false;
+        $this->reset(['user_id', 'name', 'email', 'role', 'no_hp', 'nama_bank', 'no_rekening', 'atas_nama']);
     }
 
     public function render()
     {
-        $users = UserModel::latest()->paginate(10);
-
         return view('livewire.admin.user', [
-            'users' => $users
+            'users' => UserModel::latest()->paginate(10)
         ]);
     }
 }

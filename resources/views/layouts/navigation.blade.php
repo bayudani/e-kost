@@ -19,7 +19,9 @@
             </div>
             <!-- Inisial Avatar Kekinian (Ngambil huruf pertama dari nama) -->
             <div class="h-10 w-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-md">
-                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                <a href="{{ route('profil') }}">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                </a>
             </div>
         </div>
     </div>

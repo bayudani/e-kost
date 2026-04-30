@@ -5,7 +5,7 @@
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6 lg:p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-5">
         <div>
             <h2 class="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">Kelola Pengguna</h2>
-            <p class="text-slate-500 text-xs sm:text-sm mt-1 sm:mt-1.5 font-medium">Manajemen akses dan data akun Admin, Penjual, dan Pembeli.</p>
+            <p class="text-slate-500 text-xs sm:text-sm mt-1 sm:mt-1.5 font-medium">Pantau data akun Admin, Penjual, dan Pembeli yang terdaftar.</p>
         </div>
     </div>
 
@@ -64,12 +64,15 @@
                             </td>
                             <td class="px-4 sm:px-6 py-3 sm:py-4">
                                 <div class="flex items-center justify-center gap-1.5 sm:gap-2">
-                                    <!-- Tombol Edit -->
-                                    <button wire:click="editUser({{ $user->id }})" class="p-1.5 sm:p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                    <!-- Tombol Detail (Mata) -->
+                                    <button wire:click="viewUser({{ $user->id }})" class="p-1.5 sm:p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Lihat Detail">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
                                     </button>
                                     <!-- Tombol Delete -->
-                                    <button wire:click="deleteUser({{ $user->id }})" wire:confirm="Yakin mau hapus data user ini secara permanen?" class="p-1.5 sm:p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors" title="Hapus">
+                                    <button wire:click="deleteUser({{ $user->id }})" wire:confirm="Yakin mau hapus data user ini secara permanen?" class="p-1.5 sm:p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors" title="Hapus Akun">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                     </button>
                                 </div>
@@ -99,66 +102,78 @@
         @endif
     </div>
 
-    <!-- ========================================== -->
-    <!-- 🔥 MODAL POP-UP EDIT USER 🔥 -->
-    <!-- ========================================== -->
-    @if($isEditModalOpen)
+    @if($isViewModalOpen)
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 sm:p-6 z-[60]">
             <!-- Modal Content -->
             <div class="bg-white rounded-2xl shadow-xl w-full max-w-md flex flex-col animate-in fade-in zoom-in-95 duration-200">
                 
                 <!-- Header Modal -->
                 <div class="px-5 py-4 sm:px-6 sm:py-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-2xl">
-                    <h3 class="text-base sm:text-lg font-bold text-slate-800">Edit Data Pengguna</h3>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-800">Detail Pengguna</h3>
                     <button wire:click="closeModal" class="p-1.5 sm:p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
 
-                <!-- Body Modal (Form) -->
-                <div class="p-5 sm:p-6">
-                    <form wire:submit.prevent="updateUser" class="space-y-4 sm:space-y-5">
-                        
-                        <!-- Input Nama -->
-                        <div class="space-y-1.5">
-                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider">Nama Lengkap</label>
-                            <input type="text" wire:model="name" class="w-full rounded-xl border-slate-200 bg-slate-50 px-3.5 py-2 sm:px-4 sm:py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors" placeholder="Masukkan nama pengguna">
-                            @error('name') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
+                <!-- Body Modal (Read Only) -->
+                <div class="p-5 sm:p-6 space-y-6">
+                    
+                    <!-- Basic Info -->
+                    <div class="flex items-center gap-4 mb-2">
+                        <div class="h-14 w-14 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black text-xl shadow-inner border border-blue-200 flex-shrink-0">
+                            {{ strtoupper(substr($name, 0, 1)) }}
                         </div>
-
-                        <!-- Input Email -->
-                        <div class="space-y-1.5">
-                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider">Email Akun</label>
-                            <input type="email" wire:model="email" class="w-full rounded-xl border-slate-200 bg-slate-50 px-3.5 py-2 sm:px-4 sm:py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors" placeholder="email@contoh.com">
-                            @error('email') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800">{{ $name }}</h4>
+                            <span class="inline-flex mt-0.5 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-500 border border-slate-200">
+                                Role: {{ $role }}
+                            </span>
                         </div>
+                    </div>
 
-                        <!-- Select Role -->
-                        <div class="space-y-1.5">
-                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider">Role Akses</label>
-                            <select wire:model="role" class="w-full rounded-xl border-slate-200 bg-slate-50 px-3.5 py-2 sm:px-4 sm:py-2.5 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors cursor-pointer">
-                                <option value="pembeli">Pembeli</option>
-                                <option value="penjual">Penjual</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                            @error('role') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Email Terdaftar</p>
+                            <p class="text-sm font-semibold text-slate-800">{{ $email }}</p>
                         </div>
+                    </div>
 
-                        <!-- Footer Modal (Buttons) -->
-                        <div class="flex flex-col-reverse sm:flex-row gap-2.5 sm:gap-3 pt-5 sm:pt-6 mt-6 sm:mt-8 border-t border-slate-100">
-                            <button type="button" wire:click="closeModal" class="w-full sm:flex-1 py-2.5 px-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold rounded-xl transition-colors text-sm">
-                                Batal
-                            </button>
-                            <button type="submit" class="w-full sm:flex-1 py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-sm hover:shadow-md hover:shadow-blue-500/20 transition-all text-sm flex justify-center items-center gap-2">
-                                <span wire:loading.remove wire:target="updateUser">Simpan Perubahan</span>
-                                <span wire:loading wire:target="updateUser" class="flex items-center gap-2">
-                                    <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                    Menyimpan...
-                                </span>
-                            </button>
+                    <!-- Jika Penjual, tampilkan data rekening -->
+                    @if($role === 'penjual')
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-800 mb-3 flex items-center gap-2 uppercase tracking-wider">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                                Data Pencairan / Rekening
+                            </h4>
+                            
+                            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100">
+                                <div class="p-3.5 flex flex-col">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Nomor WhatsApp/HP</span>
+                                    <span class="text-sm font-semibold text-slate-800">{{ $no_hp ?: 'Belum diisi' }}</span>
+                                </div>
+                                <div class="p-3.5 flex flex-col">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Bank / E-Wallet</span>
+                                    <span class="text-sm font-semibold text-slate-800">{{ $nama_bank ?: 'Belum diisi' }}</span>
+                                </div>
+                                <div class="p-3.5 flex flex-col bg-slate-50">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Nomor Rekening</span>
+                                    <span class="text-base font-mono font-bold text-blue-600 tracking-wider">{{ $no_rekening ?: 'Belum diisi' }}</span>
+                                </div>
+                                <div class="p-3.5 flex flex-col">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Atas Nama</span>
+                                    <span class="text-sm font-bold text-slate-800 uppercase">{{ $atas_nama ?: 'Belum diisi' }}</span>
+                                </div>
+                            </div>
                         </div>
+                    @endif
 
-                    </form>
+                </div>
+
+                <!-- Footer Modal (Tutup) -->
+                <div class="px-5 py-4 border-t border-slate-100 bg-slate-50/80 rounded-b-2xl">
+                    <button type="button" wire:click="closeModal" class="w-full py-2.5 px-4 bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold rounded-xl transition-colors text-sm shadow-sm">
+                        Tutup Jendela
+                    </button>
                 </div>
             </div>
         </div>
